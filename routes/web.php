@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Routing\Route;
 
-Route::get("/me","AuthController@me");
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get("/me","AuthController@me");
