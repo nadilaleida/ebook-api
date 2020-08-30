@@ -17,17 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::resource('books','BookController');
+Route::resource('authors','AuthorController');
 
-// Route::resource("books","BookController");
-
-Route::get('/me', 'AuthController@me');
-
-Route::get('/books', 'BookController@index');
-
-
-Route::post('/books/create', 'BookController@store');
-
-
-Route::post('/books/update/{id}', 'BookController@update');
-
-Route::delete('/books/delete/{id}', 'BookController@destroy');
