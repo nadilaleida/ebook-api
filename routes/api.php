@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -17,6 +18,27 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resource('books','BookController');
-Route::resource('authors','AuthorController');
+Route::resource('books','BookController')->middleware('jwt.verify');
+Route::resource('authors','AuthorController')->middleware('jwt.verify');
 
+Route::prefix('auth')->group(function() {
+    Route::post('login', 'UserController@login');
+    Route::post('register', 'UserController@register');
+    Route::get('user-profile','UserController@getAuthenticatedUser')->middleware('jwt.verify');
+    Route::post('logout', 'UserController@logout');
+    Route::post('refresh', 'UserController@refresh');
+});
+
+
+
+// Route::group([
+//     'middleware' => 'api',
+//     'prefix' => 'auth'
+
+// ], function ($router) {
+    // Route::post('login', 'AuthController@login');
+    // Route::post('register', 'AuthController@register');
+    // Route::post('logout', 'AuthController@logout');
+    // Route::post('refresh', 'AuthController@refresh');
+//     Route::get('user-profile', 'AuthController@userProfile');
+// });
